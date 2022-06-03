@@ -1,26 +1,30 @@
-package com.usc.UI;
-
-import javax.swing.*;
+package com.usc.ui;
+import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+import javax.swing.*;
 
-public class PanelTablero extends JPanel implements ActionListener { //1
 
+/**
+ *
+ * @author Romix
+ */
+public class PanelTablero extends JPanel implements ActionListener{
+  
+    Random aleatorio = new Random();
     JLabel etiquetaPrueba;
+    final int X=1, O=0, VACIA = -1;
+    int turno_actual = 1;
+    boolean ganador = false;
+    JButton botones[][];
+    int tablero[][];
+    
 
-    final int X = 1, O=0, VACIA = -1;
-
-    int turno_actual;
-
-    boolean ganador;
-
-   int tablero[][];
-   JButton botones[][];
-
-    public PanelTablero() {
-
-        ganador = false;
+    public PanelTablero(){
+    
+       ganador = false;
         turno_actual = X;
 
         this.setLayout(new GridLayout(3,3));
@@ -61,7 +65,7 @@ public class PanelTablero extends JPanel implements ActionListener { //1
                     JOptionPane.showMessageDialog(this, "Juega la máquina"   );
                     jugada_maquina();
                     break;
-                case "01":
+               case "01":
                     botones[0][1].setText("X");
                     botones[0][1].setEnabled(false);
                     tablero[0][1] = 1;
@@ -93,10 +97,34 @@ public class PanelTablero extends JPanel implements ActionListener { //1
                     JOptionPane.showMessageDialog(this, "Juega la máquina"   );
                     jugada_maquina();
                     break;
+                    case "12":
+                    botones[1][2].setText("X");
+                    botones[1][2].setEnabled(false);
+                    tablero[1][2] = 1;
+                    validar();
+                    JOptionPane.showMessageDialog(this, "Juega la máquina"   );
+                    jugada_maquina();
+                    break;
                 case "20":
                     botones[2][0].setText("X");
                     botones[2][0].setEnabled(false);
                     tablero[2][0] = 1;
+                    validar();
+                    JOptionPane.showMessageDialog(this, "Juega la máquina"   );
+                    jugada_maquina();
+                    break;
+                    case "21":
+                    botones[2][1].setText("X");
+                    botones[2][1].setEnabled(false);
+                    tablero[2][1] = 1;
+                    validar();
+                    JOptionPane.showMessageDialog(this, "Juega la máquina"   );
+                    jugada_maquina();
+                    break;
+                    case "22":
+                    botones[2][2].setText("X");
+                    botones[2][2].setEnabled(false);
+                    tablero[2][2] = 1;
                     validar();
                     JOptionPane.showMessageDialog(this, "Juega la máquina"   );
                     jugada_maquina();
@@ -106,13 +134,10 @@ public class PanelTablero extends JPanel implements ActionListener { //1
         }
 
     }
-
-
-    /**
-    * La jugada de la máquina solo busca la primera casilla libre en la que puede hacer la jugada
-    */
+    
+     
     private void jugada_maquina() {
-        //buscar una casilla libre donde jugar:
+        
         boolean jugada = false;
         if(!ganador) {
             for (int i = 0; i < 3 && !jugada; i++) {
@@ -123,29 +148,97 @@ public class PanelTablero extends JPanel implements ActionListener { //1
                         botones[i][j].setEnabled(false);
                         jugada = true;
                         break;
+                        
                     }
                 }
             }
         }
     }
 
-    /**
-     * PENDIENTE
-     * Validar si hay un ganador, y VALIDAR EL EMPATE:
-     */
+    /*Valida si hay un ganador*/
     private void validar() {
-
+        
         //validar primera fila:
-        if(tablero[0][0]== tablero[0][1] && tablero[0][1] == tablero[0][2] && tablero[0][0] != VACIA)
+        if(tablero[0][0]== tablero[0][1] && tablero[0][1] == tablero[0][2] && tablero[0][0] != VACIA){
             ganador = true;
+            botones[0][0].setBackground(Color.BLUE);
+            botones[0][1].setBackground(Color.BLUE);
+            botones[0][2].setBackground(Color.BLUE);
+        
+        }
 
         //validar segunda fila:
+         if(tablero[1][0]== tablero[1][1] && tablero[1][1] == tablero[1][2] && tablero[1][0] != VACIA){
+            ganador = true;
+            botones[1][0].setBackground(Color.BLUE);
+            botones[1][1].setBackground(Color.BLUE);
+            botones[1][2].setBackground(Color.BLUE);
+         
+         }
 
         //validar tercera fila:
+         if(tablero[2][0]== tablero[2][1] && tablero[2][1] == tablero[2][2] && tablero[2][0] != VACIA){
+            ganador = true;
+            botones[2][0].setBackground(Color.BLUE);
+            botones[2][1].setBackground(Color.BLUE);
+            botones[2][2].setBackground(Color.BLUE);
+         
+         }
 
-        //validar columnas:
+        //validar columna 1
+        
+         if(tablero[0][0]== tablero[1][0] && tablero[1][0] == tablero[2][0] && tablero[0][0] != VACIA){
+            ganador = true;
+            botones[0][0].setBackground(Color.BLUE);
+            botones[1][0].setBackground(Color.BLUE);
+            botones[2][0].setBackground(Color.BLUE);
+         
+         }
+         
+        //Validar columna 2 
+         if(tablero[0][1]== tablero[1][1] && tablero[1][1] == tablero[2][1] && tablero[0][1] != VACIA){
+            ganador = true;
+            botones[0][1].setBackground(Color.BLUE);
+            botones[1][1].setBackground(Color.BLUE);
+            botones[2][1].setBackground(Color.BLUE);
+         
+         }
+        //Validar columna 3 
+         if(tablero[0][2]== tablero[1][2] && tablero[1][2] == tablero[2][2] && tablero[0][2] != VACIA){
+            ganador = true;
+            botones[0][2].setBackground(Color.BLUE);
+            botones[1][2].setBackground(Color.BLUE);
+            botones[2][2].setBackground(Color.BLUE);
+         
+         }
 
         //validar diagonales:
+        
+        //Validar diagonal 1
+         if(tablero[0][0]== tablero[1][1] && tablero[1][1] == tablero[2][2] && tablero[0][0] != VACIA){
+            ganador = true;
+            botones[0][0].setBackground(Color.BLUE);
+            botones[1][1].setBackground(Color.BLUE);
+            botones[2][2].setBackground(Color.BLUE);
+         
+         }
+         //Validar diagonal 2
+         if(tablero[0][2]== tablero[1][1] && tablero[1][1] == tablero[2][0] && tablero[0][2] != VACIA){
+            ganador = true;
+            botones[0][2].setBackground(Color.BLUE);
+            botones[1][1].setBackground(Color.BLUE);
+            botones[2][0].setBackground(Color.BLUE);
+         
+         }
+         
+         
+    
 
+    
+        
+       
+        
+    
     }
 }
+
